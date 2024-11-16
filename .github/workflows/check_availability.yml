@@ -2,7 +2,7 @@ name: Product Availability Check
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # Runs every 4 hours (CRON syntax: minute, hour, day, month, weekday)
+    - cron: '0 */4 * * *'  # Runs every 4 hours
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -25,3 +25,11 @@ jobs:
 
     - name: Run the availability check script
       run: python check_availability.py
+
+    - name: Commit updated output to GitHub Pages
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add docs/output.json
+        git commit -m "Update output.json with latest availability data"
+        git push
