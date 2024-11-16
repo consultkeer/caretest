@@ -1,9 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+import json
+import os
 
 # List of product URLs to check
 urls = [
-    'https://caresmith.com/products/revive-electric-head-massager',  # Replace with your product URLs
+    'https://caresmith.com/products/revive-electric-head-massager',
     'https://caresmith.com/products/x-massage-gun',
     'https://caresmith.com/products/revive-electric-head-massager?variant=44546776301731'
 ]
@@ -25,6 +27,17 @@ def check_availability():
                 out_of_stock_items.append(url)
         else:
             print(f"Failed to fetch the page for {url}")
+
+    # Save the results to a JSON file in the docs folder
+    result = {
+        "out_of_stock_items": out_of_stock_items
+    }
+
+    # Ensure the docs folder exists
+    os.makedirs('docs', exist_ok=True)
+
+    with open('docs/output.json', 'w') as f:
+        json.dump(result, f)
 
     if out_of_stock_items:
         print("The following products are out of stock:")
