@@ -2,7 +2,7 @@ name: Product Availability Check
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # Runs daily at 8:00 AM (CRON syntax: minute, hour, day, month, weekday)
+    - cron: '0 */4 * * *'  # Runs every 4 hours (CRON syntax: minute, hour, day, month, weekday)
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
