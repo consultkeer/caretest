@@ -1,0 +1,27 @@
+name: Product Availability Check
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs daily at 8:00 AM (CRON syntax: minute, hour, day, month, weekday)
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  check-availability:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4
+
+    - name: Run the availability check script
+      run: python check_availability.py
