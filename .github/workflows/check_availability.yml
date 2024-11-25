@@ -1,8 +1,6 @@
 name: Product Availability Check
 
 on:
-  schedule:
-    - cron: '0 0 * * *'  # Runs every 1 minute
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
